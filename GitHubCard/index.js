@@ -4,6 +4,8 @@
     https://api.github.com/users/<your name>
 */
 
+// const { default: axios } = require("axios");
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -58,3 +60,71 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+
+const brad = 'https://api.github.com/users/attyfinch'
+
+// high level card div
+const card = document.createElement('div');
+card.classList.add('card');
+
+// profilePic
+const profilePic = document.createElement('img');
+profilePic.setAttribute('src', "https://avatars.githubusercontent.com/u/7571073?v=4")
+card.appendChild(profilePic);
+
+
+// cardInfo div
+const cardInfo = document.createElement('div');
+cardInfo.classList.add('card-info');
+card.appendChild(cardInfo);
+
+const irlName = document.createElement('h3');
+irlName.classList.add('name');
+cardInfo.appendChild(irlName);
+
+const userName = document.createElement('p');
+userName.classList.add('username');
+cardInfo.appendChild(userName);
+
+const whereabouts = document.createElement('p');
+cardInfo.appendChild(whereabouts);
+
+// contains anchor for link
+const profileLink = document.createElement('p');
+cardInfo.appendChild(profileLink);
+const ghlink = document.createElement('a')
+profileLink.appendChild(ghlink);
+
+const followers = document.createElement('p');
+cardInfo.appendChild(followers);
+
+const following = document.createElement('p');
+cardInfo.appendChild(following);
+
+const bio = document.createElement('p');
+cardInfo.appendChild(bio);
+
+console.log(card)
+
+// const grabData = (event) => {
+//   console.log('fetching data');
+//   axios.get(brad)
+//    .then (res => {
+//     debugger
+//    })
+//    .catch (err => {
+//     debugger
+//    })
+// }
+
+
+
+
+// import axios from 'axios'
+
+
+
+
+
+
