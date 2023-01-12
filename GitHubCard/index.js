@@ -1,3 +1,5 @@
+import axios from "axios";
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -61,8 +63,9 @@ const followersArray = [];
     bigknell
 */
 
-
 const brad = 'https://api.github.com/users/attyfinch'
+
+
 
 // high level card div
 const card = document.createElement('div');
@@ -107,21 +110,18 @@ cardInfo.appendChild(bio);
 
 console.log(card)
 
-// const grabData = (event) => {
-//   console.log('fetching data');
-//   axios.get(brad)
-//    .then (res => {
-//     debugger
-//    })
-//    .catch (err => {
-//     debugger
-//    })
-// }
+const grabData = (event) => {
+  console.log('fetching data');
+  axios.get(brad)
+   .then (res => {
+    debugger
+   })
+   .catch (err => {
+    debugger
+   })
+}
 
 
-
-
-// import axios from 'axios'
 
 
 
