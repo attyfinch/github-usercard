@@ -1,12 +1,11 @@
-import axios from "axios";
+// const { default: axios } = require("axios");
 
+`import axios from 'axios';`
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
-// const { default: axios } = require("axios");
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -65,8 +64,6 @@ const followersArray = [];
 
 const brad = 'https://api.github.com/users/attyfinch'
 
-
-
 // high level card div
 const card = document.createElement('div');
 card.classList.add('card');
@@ -108,23 +105,33 @@ cardInfo.appendChild(following);
 const bio = document.createElement('p');
 cardInfo.appendChild(bio);
 
-console.log(card)
+// appending card to the cards div so it appears on the page
+const cards = document.querySelector('div.cards')
+cards.appendChild(card);
 
+// card contstructor
 const grabData = (event) => {
-  console.log('fetching data');
   axios.get(brad)
    .then (res => {
-    debugger
+    irlName.textContent = res.data.name
+    userName.textContent = res.data.login
+    whereabouts.textContent = res.data.location
+    ghlink.href = res.data.html_url
+    followers.textContent = res.data.followers
+    following.textContent = res.data.following
+    bio.textContent = res.data.bio
    })
    .catch (err => {
-    debugger
+    alert('clearly something is broken')
    })
 }
 
+// invoking the grabData function and it's promise.
+grabData()
 
 
 
 
 
-
+// const https://api.github.com/users/<Your github name>/followers
 
