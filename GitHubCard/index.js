@@ -1,4 +1,3 @@
-// const { default: axios } = require("axios");
 
 `import axios from 'axios';`
 /*
@@ -31,7 +30,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['attyfinch','paulgodfrey', 'tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -63,75 +62,79 @@ const followersArray = [];
 */
 
 const brad = 'https://api.github.com/users/attyfinch'
-
-// high level card div
-const card = document.createElement('div');
-card.classList.add('card');
-
-// profilePic
-const profilePic = document.createElement('img');
-profilePic.setAttribute('src', "https://avatars.githubusercontent.com/u/7571073?v=4")
-card.appendChild(profilePic);
-
-
-// cardInfo div
-const cardInfo = document.createElement('div');
-cardInfo.classList.add('card-info');
-card.appendChild(cardInfo);
-
-const irlName = document.createElement('h3');
-irlName.classList.add('name');
-cardInfo.appendChild(irlName);
-
-const userName = document.createElement('p');
-userName.classList.add('username');
-cardInfo.appendChild(userName);
-
-const whereabouts = document.createElement('p');
-cardInfo.appendChild(whereabouts);
-
-// contains anchor for link
-const profileLink = document.createElement('p');
-cardInfo.appendChild(profileLink);
-const ghlink = document.createElement('a')
-profileLink.appendChild(ghlink);
-
-const followers = document.createElement('p');
-cardInfo.appendChild(followers);
-
-const following = document.createElement('p');
-cardInfo.appendChild(following);
-
-const bio = document.createElement('p');
-cardInfo.appendChild(bio);
-
-// appending card to the cards div so it appears on the page
 const cards = document.querySelector('div.cards')
-cards.appendChild(card);
 
-// card contstructor
-const grabData = (event) => {
-  axios.get(brad)
-   .then (res => {
-    irlName.textContent = res.data.name
-    userName.textContent = res.data.login
-    whereabouts.textContent = res.data.location
-    ghlink.href = res.data.html_url
-    followers.textContent = res.data.followers
-    following.textContent = res.data.following
-    bio.textContent = res.data.bio
-   })
-   .catch (err => {
-    alert('clearly something is broken')
-   })
+axios.get(brad)
+  .then(res => {
+    cards.appendChild(cardBuilder(res.data))
+  })
+  .catch(err => {
+    debugger;
+  })
+
+cardBuilder = (gitInfo) => {
+  // high level card div
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  // profilePic
+  const profilePic = document.createElement('img');
+  card.appendChild(profilePic);
+  profilePic.setAttribute('src', gitInfo.avatar_url);
+  
+  // cardInfo div
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  card.appendChild(cardInfo);
+
+  const irlName = document.createElement('h3');
+  irlName.classList.add('name');
+  cardInfo.appendChild(irlName);
+  irlName.textContent = gitInfo.name
+
+  const userName = document.createElement('p');
+  userName.classList.add('username');
+  cardInfo.appendChild(userName);
+  userName.textContent = gitInfo.login;
+
+  const whereabouts = document.createElement('p');
+  cardInfo.appendChild(whereabouts);
+  whereabouts.textContent = gitInfo.location
+
+  // contains anchor for link
+  const profileLink = document.createElement('p');
+  cardInfo.appendChild(profileLink);
+  
+  const ghlink = document.createElement('a')
+  profileLink.appendChild(ghlink);
+  ghlink.href = gitInfo.html_url
+
+  const followers = document.createElement('p');
+  cardInfo.appendChild(followers);
+  followers.textContent = `Followers: ${gitInfo.followers}`;
+
+  const following = document.createElement('p');
+  cardInfo.appendChild(following);
+  following.textContent = `Following: ${gitInfo.following}`;
+
+  const bio = document.createElement('p');
+  cardInfo.appendChild(bio);
+  bio.textContent = gitInfo.bio;
+
+  return card
+
 }
 
-// invoking the grabData function and it's promise.
-grabData()
+const url = 'https://api.github.com/users/'
+const addPeople = ['paulgodfrey', 'dwbrown2', 'tetondan','dustinmyers','justsml','luishrd','bigknell', 'richard', 'brad'];
 
-
-
-
-
-// const https://api.github.com/users/<Your github name>/followers
+addPeople.forEach((profile) => {
+  axios.get(url+profile)
+  .then(res => {
+    cards.appendChild(cardBuilder(res.data))
+  })
+  .catch(err => {
+    debugger;
+  })
+})
 
